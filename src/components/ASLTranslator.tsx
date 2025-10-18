@@ -89,8 +89,8 @@ const ASLTranslator: React.FC = () => {
       try {
         setIsLoading(true);
         const detectorConfig = {
-          runtime: 'tfjs',
-          modelType: 'full',
+          runtime: 'tfjs' as const,
+          modelType: 'full' as const,
           maxHands: 2,
         };
         
