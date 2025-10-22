@@ -30,9 +30,9 @@ const Index = () => {
             <li><a href="#vision" onClick={(e) => smoothScroll(e, '#vision')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Vision</a></li>
             <li><a href="#support" onClick={(e) => smoothScroll(e, '#support')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Support Us</a></li>
           </ul>
-          <a href="#contact">
+          <a href="#support" onClick={(e) => smoothScroll(e, '#support')}>
             <Button className="underglow shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)]">
-              Join the Movement
+              Support Us
             </Button>
           </a>
         </div>
@@ -325,31 +325,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="contact" className="py-40 text-center relative" style={{ background: 'radial-gradient(ellipse at center, hsl(222 29% 9%) 0%, hsl(222 32% 6%) 100%)' }} aria-labelledby="cta-heading">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        <div className="container mx-auto px-4">
-          <h2 id="cta-heading" className="text-4xl md:text-7xl font-black mb-6 tracking-tight">Ready to Make a Difference?</h2>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            Join us in creating technology that amplifies every voice and breaks down barriers to communication.
-          </p>
-          <div className="flex gap-6 justify-center flex-wrap">
-            <Button size="lg" className="text-lg px-14 py-7 rounded-full underglow shadow-[0_0_40px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_60px_hsl(var(--primary)/0.6)] gap-2">
-              <Users className="w-5 h-5" />
-              Contact Us
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-14 py-7 rounded-full underglow bg-primary/10 border-primary/30 hover:bg-primary/20 hover:border-primary/60 gap-2">
-              <Heart className="w-5 h-5" />
-              Donate
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-card/30 border-t border-primary/10 py-20" role="contentinfo">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
             <div>
               <UnmuteLogo showText={true} />
               <p className="text-muted-foreground mt-6 leading-relaxed">
@@ -370,13 +350,6 @@ const Index = () => {
               <ul className="space-y-3">
                 <li><Link to="/asl-translator" className="text-muted-foreground hover:text-primary transition-colors">ASL Translator</Link></li>
               </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-primary mb-6">Contact</h4>
-              <p className="text-muted-foreground leading-relaxed">
-                Email: info@unmuteinc.org<br />
-                Website: unmuteinc.org
-              </p>
             </div>
           </div>
           <div className="border-t border-primary/10 pt-12 text-center">
