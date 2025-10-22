@@ -4,6 +4,8 @@ import { ArrowRight, Heart, Users, Hand } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UnmuteLogo } from "@/components/UnmuteLogo";
 import { HeroVisualization } from "@/components/HeroVisualization";
+import { ContactForm } from "@/components/ContactForm";
+import { DonationFundraiser } from "@/components/DonationFundraiser";
 
 const Index = () => {
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -28,11 +30,12 @@ const Index = () => {
             <li><a href="#founder" onClick={(e) => smoothScroll(e, '#founder')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Founder</a></li>
             <li><a href="#products" onClick={(e) => smoothScroll(e, '#products')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Products</a></li>
             <li><a href="#vision" onClick={(e) => smoothScroll(e, '#vision')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Vision</a></li>
-            <li><a href="#support" onClick={(e) => smoothScroll(e, '#support')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Support Us</a></li>
+            <li><a href="#donate" onClick={(e) => smoothScroll(e, '#donate')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Donate</a></li>
+            <li><a href="#contact" onClick={(e) => smoothScroll(e, '#contact')} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact</a></li>
           </ul>
-          <a href="#support" onClick={(e) => smoothScroll(e, '#support')}>
+          <a href="#donate" onClick={(e) => smoothScroll(e, '#donate')}>
             <Button className="underglow shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)]">
-              Support Us
+              Donate
             </Button>
           </a>
         </div>
@@ -257,74 +260,45 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Support Section */}
-      <section id="support" className="py-40 relative" aria-labelledby="support-heading">
+      {/* Donation Section */}
+      <section id="donate" className="py-40 relative" aria-labelledby="donate-heading">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <span className="inline-block px-6 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-semibold uppercase tracking-[2px] mb-8">
               Support Our Mission
             </span>
-            <h2 id="support-heading" className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Help Us Give Everyone a Voice</h2>
+            <h2 id="donate-heading" className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Help Us Give Everyone a Voice</h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-16">
-              Your support helps us develop accessible technology and provide our tools to those who need them most. Choose how you'd like to contribute to a more inclusive future.
+              Your support helps us develop accessible technology and provide our tools to those who need them most.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto mb-20">
-            {[
-              {
-                icon: '💝',
-                title: 'One-Time Donation',
-                description: 'Make a direct impact with a one-time contribution. Every donation helps us research, develop, and distribute our accessibility tools to communities in need.',
-                options: ['Publicly (featured on our Supporters page)', 'Anonymous (your privacy protected)'],
-                action: 'Donate Now',
-              },
-              {
-                icon: '🤝',
-                title: 'Become a Sponsor',
-                description: 'Partner with us as a corporate or individual sponsor. Sponsors receive recognition on our website, in our communications, and at our events.',
-                options: ['Champion Sponsor (Featured)', 'Supporting Sponsor (Listed)', 'Friend of Unmute (Anonymous option)'],
-                action: 'Learn More',
-              },
-              {
-                icon: '🌟',
-                title: 'Monthly Support',
-                description: 'Join our community of recurring donors who provide sustainable support for ongoing development and free access to our tools for underserved communities.',
-                options: ['Public recognition (optional)', 'Exclusive updates & early access', 'Cancel anytime'],
-                action: 'Start Supporting',
-              },
-            ].map((option, index) => (
-              <Card key={index} className="glass-card transition-all duration-400 hover:border-primary/40 hover:shadow-[0_30px_80px_hsl(var(--primary)/0.2)] hover:-translate-y-3">
-                <CardContent className="p-10">
-                  <div className="text-6xl mb-6">{option.icon}</div>
-                  <h3 className="text-2xl font-bold mb-4">{option.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">{option.description}</p>
-                  <p className="text-primary font-semibold mb-3">
-                    {option.title === 'Become a Sponsor' ? 'Sponsorship tiers:' : option.title === 'Monthly Support' ? 'Monthly giving options:' : 'Choose to donate:'}
-                  </p>
-                  <ul className="text-muted-foreground space-y-2 mb-8">
-                    {option.options.map((opt, i) => (
-                      <li key={i}>• {opt}</li>
-                    ))}
-                  </ul>
-                  <Button variant="outline" className="w-full border-primary/30 hover:bg-primary/20">
-                    {option.action}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-4xl mx-auto">
+            <DonationFundraiser />
           </div>
-
-          <Card className="glass-card p-12 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-primary text-center mb-6">Your Impact</h3>
-            <p className="text-muted-foreground text-center text-lg leading-relaxed">
-              100% of donations go directly to product development, research, and providing free access to our tools for those who need them most. Together, we're building a more accessible world for everyone.
-            </p>
-          </Card>
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-40 relative" style={{ background: 'radial-gradient(ellipse at center, hsl(189 100% 50% / 0.05) 0%, hsl(222 32% 6%) 70%)' }} aria-labelledby="contact-heading">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block px-6 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-semibold uppercase tracking-[2px] mb-8">
+              Get in Touch
+            </span>
+            <h2 id="contact-heading" className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Contact Us</h2>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-16">
+              Have questions? Want to partner with us? We'd love to hear from you.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <ContactForm />
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-card/30 border-t border-primary/10 py-20" role="contentinfo">

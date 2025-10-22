@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number
+          created_at: string
+          donor_name: string | null
+          id: string
+          is_anonymous: boolean | null
+          is_monthly: boolean | null
+          message: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          donor_name?: string | null
+          id?: string
+          is_anonymous?: boolean | null
+          is_monthly?: boolean | null
+          message?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          donor_name?: string | null
+          id?: string
+          is_anonymous?: boolean | null
+          is_monthly?: boolean | null
+          message?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
