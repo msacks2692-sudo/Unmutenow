@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { DollarSign, Heart, Users } from "lucide-react";
+import { stripePromise } from "@/lib/stripe";
 
 const donationSchema = z.object({
   amount: z.number().min(1, "Amount must be at least $1"),
@@ -99,26 +100,34 @@ export const DonationFundraiser = () => {
       
       setIsSubmitting(true);
 
-      const { error } = await supabase
-        .from("donations")
-        .insert([{
+      // Call edge function to create Stripe checkout session
+      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+        body: {
           amount: validatedData.amount,
           donor_name: formData.is_anonymous ? null : validatedData.donor_name || "Anonymous",
           message: validatedData.message || null,
           is_anonymous: formData.is_anonymous,
-        }]);
+        }
+      });
 
       if (error) throw error;
 
-      toast.success("Thank you for your generous donation! 💙");
-      setFormData({ amount: "", donor_name: "", message: "", is_anonymous: false });
+      // Redirect to Stripe Checkout
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error('Stripe failed to load');
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error(error.errors[0].message);
       } else {
         toast.error("Failed to process donation. Please try again.");
+        console.error('Donation error:', error);
       }
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -234,11 +243,11 @@ export const DonationFundraiser = () => {
               className="w-full underglow shadow-[0_0_40px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_60px_hsl(var(--primary)/0.6)]"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Processing..." : "Donate Now"}
+              {isSubmitting ? "Continue to Payment" : "Donate Now"}
             </Button>
             
             <p className="text-xs text-center text-muted-foreground">
-              This is a demonstration form. Actual payment processing will be integrated soon.
+              Secure payment powered by Stripe
             </p>
           </form>
         </CardContent>
