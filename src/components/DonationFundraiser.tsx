@@ -16,17 +16,22 @@ const donationSchema = z.object({
   message: z.string().trim().max(500, "Message must be less than 500 characters").optional(),
 });
 
-interface Donation {
-  id: string;
-  donor_name: string | null;
-  amount: number;
+interface RecentDonation {
+  display_name: string | null;
+  display_amount: number | null;
   message: string | null;
-  is_anonymous: boolean;
-  created_at: string;
+  created_at: string | null;
+}
+
+interface DonationStats {
+  total_donors: number | null;
+  total_raised: number | null;
+  anonymous_donors: number | null;
+  named_donors: number | null;
 }
 
 export const DonationFundraiser = () => {
-  const [donations, setDonations] = useState<Donation[]>([]);
+  const [donations, setDonations] = useState<RecentDonation[]>([]);
   const [totalRaised, setTotalRaised] = useState(0);
   const [donorCount, setDonorCount] = useState(0);
   const [formData, setFormData] = useState({
@@ -64,25 +69,24 @@ export const DonationFundraiser = () => {
   }, []);
 
   const fetchDonations = async () => {
-    const { data, error } = await supabase
-      .from("donations")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10);
+    // Fetch recent donations from public view
+    const { data: recentData, error: recentError } = await supabase
+      .from("recent_donations")
+      .select("*");
 
-    if (!error && data) {
-      setDonations(data);
-      
-      // Calculate total and count
-      const { data: stats } = await supabase
-        .from("donations")
-        .select("amount");
-      
-      if (stats) {
-        const total = stats.reduce((sum, d) => sum + Number(d.amount), 0);
-        setTotalRaised(total);
-        setDonorCount(stats.length);
-      }
+    if (!recentError && recentData) {
+      setDonations(recentData);
+    }
+    
+    // Fetch donation statistics from public view
+    const { data: statsData, error: statsError } = await supabase
+      .from("donation_statistics")
+      .select("*")
+      .single();
+    
+    if (!statsError && statsData) {
+      setTotalRaised(Number(statsData.total_raised) || 0);
+      setDonorCount(Number(statsData.total_donors) || 0);
     }
   };
 
@@ -164,22 +168,26 @@ export const DonationFundraiser = () => {
             <div className="border-t border-primary/10 pt-8">
               <h4 className="text-lg font-bold mb-4">Recent Donations</h4>
               <div className="space-y-4 max-h-[300px] overflow-y-auto">
-                {donations.map((donation) => (
-                  <div key={donation.id} className="flex justify-between items-start p-4 bg-background/30 rounded-lg">
+                {donations.map((donation, index) => (
+                  <div key={index} className="flex justify-between items-start p-4 bg-background/30 rounded-lg">
                     <div>
                       <p className="font-semibold">
-                        {donation.is_anonymous ? "Anonymous" : donation.donor_name || "Anonymous"}
+                        {donation.display_name || "Anonymous"}
                       </p>
                       {donation.message && (
                         <p className="text-sm text-muted-foreground mt-1">{donation.message}</p>
                       )}
-                      <p className="text-xs text-muted-foreground/60 mt-1">
-                        {new Date(donation.created_at).toLocaleDateString()}
-                      </p>
+                      {donation.created_at && (
+                        <p className="text-xs text-muted-foreground/60 mt-1">
+                          {new Date(donation.created_at).toLocaleDateString()}
+                        </p>
+                      )}
                     </div>
-                    <div className="text-primary font-bold">
-                      ${Number(donation.amount).toLocaleString()}
-                    </div>
+                    {donation.display_amount && (
+                      <div className="text-primary font-bold">
+                        ${Number(donation.display_amount).toLocaleString()}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
