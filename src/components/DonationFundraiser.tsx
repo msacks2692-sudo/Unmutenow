@@ -82,7 +82,7 @@ export const DonationFundraiser = () => {
     const { data: statsData, error: statsError } = await supabase
       .from("donation_statistics")
       .select("*")
-      .single();
+      .maybeSingle();
     
     if (!statsError && statsData) {
       setTotalRaised(Number(statsData.total_raised) || 0);
