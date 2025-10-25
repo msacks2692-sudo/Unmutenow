@@ -169,18 +169,55 @@ const ASLPage = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Break Communication Barriers?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Start using our AI ASL translator today and experience the power of inclusive technology.
-          </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link to="/">
-              Explore More Accessibility Tools
-            </Link>
-          </Button>
+      {/* Beta Sign-Up Section */}
+      <section className="py-20 bg-gradient-to-r from-primary to-accent text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              Beta Launch • November 2025
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Join the ASL Translator Beta
+            </h2>
+            <p className="text-xl mb-10 opacity-90">
+              Be among the first to experience our revolutionary AI-powered ASL translator. 
+              Sign up today for early access and help shape the future of accessible communication.
+            </p>
+            
+            <Card className="glass-card bg-white/10 border-white/20 backdrop-blur-lg">
+              <CardContent className="pt-8">
+                <form className="space-y-6" onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  const email = formData.get('email');
+                  // Handle beta signup
+                  console.log('Beta signup:', email);
+                  alert('Thank you for signing up! We\'ll contact you soon.');
+                }}>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      required
+                      className="flex-1 px-6 py-4 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 text-lg"
+                    />
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      variant="secondary"
+                      className="px-8 py-4 text-lg font-semibold whitespace-nowrap"
+                    >
+                      Sign Up for Beta
+                    </Button>
+                  </div>
+                  <p className="text-sm opacity-75">
+                    Join over 1,000+ people already signed up for early access
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
