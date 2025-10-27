@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**URL**: https://lovable.dev/projects/9735f158-c0f1-4c01-bb5c-bb59457492a6
+
 
 Unmute Access Vision is a comprehensive accessibility platform dedicated to breaking down communication barriers and empowering inclusive technology. Our mission is to create tools that make digital communication accessible to everyone.
 
@@ -48,7 +48,7 @@ npm run build
 
 ## 🎯 AI ASL Translator
 
-Our flagship feature uses advanced machine learning to translate American Sign Language in real-time.
+Our newest feature uses advanced machine learning to translate American Sign Language in real-time.
 
 ### Features
 - **Real-time Detection**: Instant ASL sign recognition
