@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Heart, Users, Hand } from "lucide-react";
+import { ArrowRight, Heart, Users, Hand, Facebook, Twitter, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UnmuteLogo } from "@/components/UnmuteLogo";
 import { HeroVisualization } from "@/components/HeroVisualization";
@@ -316,8 +316,47 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-primary/10 pt-12 text-center">
-            <p className="text-muted-foreground/60">&copy; 2024 Unmute Inc. All rights reserved. Built with accessibility in mind.</p>
+          <div className="border-t border-primary/10 pt-12">
+            <div className="flex flex-col items-center gap-8 mb-8">
+              <h4 className="text-lg font-bold text-primary">Share Our Mission</h4>
+              <div className="flex gap-4">
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]"
+                  aria-label="Share on Facebook"
+                >
+                  <Facebook className="w-5 h-5 text-primary" />
+                </a>
+                <a
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Check out Unmute Inc. - Everyone deserves a voice')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]"
+                  aria-label="Share on Twitter"
+                >
+                  <Twitter className="w-5 h-5 text-primary" />
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]"
+                  aria-label="Share on LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5 text-primary" />
+                </a>
+                <a
+                  href={`mailto:?subject=${encodeURIComponent('Unmute Inc. - Everyone Deserves a Voice')}&body=${encodeURIComponent('Check out Unmute Inc.: ' + window.location.href)}`}
+                  className="p-3 bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]"
+                  aria-label="Share via Email"
+                >
+                  <Mail className="w-5 h-5 text-primary" />
+                </a>
+              </div>
+            </div>
+            <p className="text-muted-foreground/60 text-center">&copy; 2024 Unmute Inc. All rights reserved. Built with accessibility in mind.</p>
           </div>
         </div>
       </footer>
