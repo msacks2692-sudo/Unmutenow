@@ -284,16 +284,6 @@ const Index = () => {
       <section id="contact" className="py-40 relative" style={{ background: 'radial-gradient(ellipse at center, hsl(189 100% 50% / 0.05) 0%, hsl(222 32% 6%) 70%)' }} aria-labelledby="contact-heading">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="inline-block px-6 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-semibold uppercase tracking-[2px] mb-8">
-              Get in Touch
-            </span>
-            <h2 id="contact-heading" className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Contact Us</h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-16">
-              Have questions? Want to partner with us? We'd love to hear from you.
-            </p>
-          </div>
-
           <div className="max-w-2xl mx-auto">
             <ContactForm />
           </div>
