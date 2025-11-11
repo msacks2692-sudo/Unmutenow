@@ -7,8 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { DollarSign, Heart, Users } from "lucide-react";
-import { stripePromise } from "@/lib/stripe";
+import { DollarSign, Heart, Users, CreditCard, Bitcoin } from "lucide-react";
 
 const donationSchema = z.object({
   amount: z.number().min(1, "Amount must be at least $1"),
@@ -39,6 +38,7 @@ export const DonationFundraiser = () => {
     donor_name: "",
     message: "",
     is_anonymous: false,
+    payment_method: "paypal" as "paypal" | "crypto",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -104,26 +104,42 @@ export const DonationFundraiser = () => {
       
       setIsSubmitting(true);
 
-      // Call edge function to create Stripe checkout session
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: {
-          amount: validatedData.amount,
-          donor_name: formData.is_anonymous ? null : validatedData.donor_name || "Anonymous",
-          message: validatedData.message || null,
-          is_anonymous: formData.is_anonymous,
+      if (formData.payment_method === "paypal") {
+        // Create PayPal order
+        const { data, error } = await supabase.functions.invoke('create-paypal-order', {
+          body: {
+            amount: validatedData.amount,
+            donor_name: formData.is_anonymous ? null : validatedData.donor_name || "Anonymous",
+            message: validatedData.message || null,
+            is_anonymous: formData.is_anonymous,
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.approveUrl) {
+          window.location.href = data.approveUrl;
+        } else {
+          throw new Error('No PayPal approval URL returned');
         }
-      });
+      } else if (formData.payment_method === "crypto") {
+        // Create Coinbase Commerce charge
+        const { data, error } = await supabase.functions.invoke('create-coinbase-charge', {
+          body: {
+            amount: validatedData.amount,
+            donor_name: formData.is_anonymous ? null : validatedData.donor_name || "Anonymous",
+            message: validatedData.message || null,
+            is_anonymous: formData.is_anonymous,
+          }
+        });
 
-      if (error) throw error;
+        if (error) throw error;
 
-      // Redirect to Stripe Checkout
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error('Stripe failed to load');
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL returned');
+        if (data.hostedUrl) {
+          window.location.href = data.hostedUrl;
+        } else {
+          throw new Error('No Coinbase payment URL returned');
+        }
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -201,6 +217,36 @@ export const DonationFundraiser = () => {
         <CardContent className="p-10">
           <h3 className="text-3xl font-bold mb-8 text-center">Make a Donation</h3>
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Payment Method Selection */}
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, payment_method: "paypal" })}
+                className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                  formData.payment_method === "paypal"
+                    ? "border-primary bg-primary/10"
+                    : "border-border bg-background/50 hover:border-primary/50"
+                }`}
+              >
+                <CreditCard className="w-6 h-6 mx-auto mb-2" />
+                <div className="font-semibold">PayPal</div>
+                <div className="text-xs text-muted-foreground">Credit Card & PayPal</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, payment_method: "crypto" })}
+                className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                  formData.payment_method === "crypto"
+                    ? "border-primary bg-primary/10"
+                    : "border-border bg-background/50 hover:border-primary/50"
+                }`}
+              >
+                <Bitcoin className="w-6 h-6 mx-auto mb-2" />
+                <div className="font-semibold">Cryptocurrency</div>
+                <div className="text-xs text-muted-foreground">BTC, ETH, USDC & more</div>
+              </button>
+            </div>
+
             <div className="relative">
               <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
               <Input
@@ -255,7 +301,7 @@ export const DonationFundraiser = () => {
             </Button>
             
             <p className="text-xs text-center text-muted-foreground">
-              Secure payment powered by Stripe
+              Secure payment powered by {formData.payment_method === "paypal" ? "PayPal" : "Coinbase Commerce"}
             </p>
           </form>
         </CardContent>

@@ -1,1 +1,13 @@
 project_id = "syhntyfwecsjbufavede"
+
+[functions.create-paypal-order]
+verify_jwt = false
+
+[functions.capture-paypal-order]
+verify_jwt = false
+
+[functions.create-coinbase-charge]
+verify_jwt = false
+
+[functions.coinbase-webhook]
+verify_jwt = false
