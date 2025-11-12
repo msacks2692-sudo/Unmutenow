@@ -6,6 +6,7 @@ import { UnmuteLogo } from "@/components/UnmuteLogo";
 import { HeroVisualization } from "@/components/HeroVisualization";
 import { ContactForm } from "@/components/ContactForm";
 import { DonationFundraiser } from "@/components/DonationFundraiser";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 const Index = () => {
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -317,6 +318,14 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-primary/10 pt-12">
+            <div className="flex flex-col items-center gap-8 mb-12">
+              <div className="text-center">
+                <h4 className="text-lg font-bold text-primary mb-2">Stay Updated</h4>
+                <p className="text-muted-foreground text-sm mb-6">Subscribe to our newsletter for updates and announcements</p>
+                <NewsletterForm />
+              </div>
+            </div>
+            
             <div className="flex flex-col items-center gap-8 mb-8">
               <h4 className="text-lg font-bold text-primary">Share Our Mission</h4>
               <div className="flex gap-4">
