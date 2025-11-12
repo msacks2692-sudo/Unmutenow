@@ -5,10 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft, Hand, Eye, Volume2, Users, Heart } from 'lucide-react';
 import ASLTranslator from '@/components/ASLTranslator';
 import { UnmuteLogo } from '@/components/UnmuteLogo';
+import { AccessibilityPopup } from '@/components/AccessibilityPopup';
 
 const ASLPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5">
+      <AccessibilityPopup />
       {/* Navigation */}
       <nav className="border-b glass sticky top-0 z-50" role="navigation" aria-label="ASL Translator navigation">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
