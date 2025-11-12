@@ -8,6 +8,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { DonationFundraiser } from "@/components/DonationFundraiser";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { AccessibilityPopup } from "@/components/AccessibilityPopup";
+import { AccessibilityToolbar } from "@/components/AccessibilityToolbar";
 
 const Index = () => {
   const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -24,6 +25,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <AccessibilityPopup />
+      <AccessibilityToolbar />
       {/* Navigation */}
       <nav className="fixed top-0 w-full glass z-50 border-b border-primary/10" role="navigation" aria-label="Main navigation">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
